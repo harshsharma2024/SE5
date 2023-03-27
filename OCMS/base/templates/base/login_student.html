@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/8357e7b27d.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}" />
     <title>Login</title>
 </head>
 <body>
@@ -22,7 +23,7 @@
                 <p>Choose Your Role:</p>
                 <div class="buttonsection">
                     <button id="studentclick"><a href="{% url 'student-login' %}">Student</a></button>
-                    <button id="teacherclick"><a href="{% url 'teacher-login' %}">Teacher</a></button>
+                    <button id="teacherclick"><a href="{% url 'student-login' %}">Teacher</a></button>
                 </div>
             </div>
             <div class="user">
@@ -56,7 +57,7 @@
                  </div>
              </li>
           </ul>
-          <button>  <a href="{% url 'portal' %}">Sign In</a></button>
+          <button> <input type="submit" name="" value="Login"></button>
   
            </div>
               <!-- <div id="teacher" class="teacher">

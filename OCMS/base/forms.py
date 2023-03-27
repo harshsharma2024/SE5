@@ -4,34 +4,37 @@ from .models import Room, User,Student,Teacher
 
 
 #for StudentLoginForm in html file itself
-
+class UserForm(UserCreationForm):
+    class Meta():
+        model = User
+        fields = ['email','password1','password2']
 
 #for registration
-class StudentRegisterForm(UserCreationForm):
-    class Meta:
+class StudentRegisterForm(ModelForm):
+    class Meta():
         model = Student
-        fields = ['name','email','password1', 'password2']
+        fields = ['name','roll_no','department']
 
 
-class TeacherRegisterForm(UserCreationForm):
-    class Meta:
+class TeacherRegisterForm(ModelForm):
+    class Meta():
         model = Teacher
-        fields = ['name','email','password1', 'password2']
+        fields = ['name','subject_name']
 
 
 class RoomForm(ModelForm):
-    class Meta:
+    class Meta():
         model = Room
         fields = '__all__'
         exclude = ['host', 'students']
 
 class StudentUpdateForm(ModelForm):
-    class Meta:
+    class Meta():
         model=Student
         fields='__all__'
 
 class TeacherUpdateForm(ModelForm):
-    class Meta:
+    class Meta():
         model=Teacher
         fields='__all__'
 

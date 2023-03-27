@@ -8,6 +8,10 @@ class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
     
+    # email = models.EmailField(unique=True)
+
+    # USERNAME_FIELD = 'email'
+    # REQUIRED_FIELDS=[]
     
 
     
@@ -18,7 +22,7 @@ class Room(models.Model):
     teacher=models.CharField(max_length=100)
     name = models.CharField(max_length=200) #set it to host.subject_name during declaration by default
     description = models.TextField(null=True, blank=True)
-    
+    email = models.EmailField(null=False)
     avatar = models.ImageField(null=True, default="avatar.svg")
 
     #assignment
@@ -26,6 +30,8 @@ class Room(models.Model):
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    
 
     class Meta:
         ordering = ['-updated', '-created']
@@ -35,16 +41,15 @@ class Room(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True,related_name='Student')
-    roll_no = models.CharField(max_length=50)
+    roll_no = models.CharField(max_length=50, null=True)
     name=models.CharField(max_length=250)
-    department=models.CharField(max_length=250)
+    email = models.EmailField(null=False)
+    department=models.CharField(max_length=250 ,null=True)
     rooms=models.ManyToManyField(Room,related_name="student_rooms",blank=True)
     bio = models.TextField(null=True)
-    phone = models.IntegerField()
+    phone = models.IntegerField(null=True)
 
-    email = models.EmailField(unique=True)
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['email']
+    
 
     avatar = models.ImageField(null=True, default="avatar.svg")
     #something with reverse absolutr url not written
@@ -60,14 +65,10 @@ class Student(models.Model):
 class Teacher(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True,related_name='Teacher')
     name=models.CharField(max_length=250)
-    subject_name = models.CharField(max_length=250)
+    subject_name = models.CharField(max_length=250,null=True)
     rooms=models.ManyToManyField(Room,related_name="teacher_rooms",blank=True)
     bio = models.TextField(null=True)
-    phone = models.IntegerField()
-
-    email = models.EmailField(unique=True)
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['email']
+    phone = models.IntegerField(null=True)
 
     avatar = models.ImageField(null=True, default="avatar.svg")
 
