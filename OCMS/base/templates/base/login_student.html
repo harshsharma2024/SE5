@@ -30,26 +30,18 @@
              <div id="student" class="student">
             <h1>Student Login</h1>
           <ul>
-            <form class="form" action="" method="POST">
+            <form action="" method="post">
                 {% csrf_token %}
-                <label for="room_name">Email</label>
-            <li>
-                <input id="username" name="email" type="email" placeholder="e.g. harshsharma2024@gmail.com" />
-                <i class=" icon fa-regular fa-envelope"></i>
-            </li>
-             <!-- <label for="userid">Userid</label> -->
-             <!-- <li>
-                <input type="text" id="userid>
-                <i class="fa-duotone fa-user"></i>
-             </li> -->
-             <label for="password">Password</label>
-          
-             <li>
-                <input id="password" name="password" type="password" 
-                placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
-                <i class=" icon fa-solid fa-lock"></i>
-             </li>
-             <li>
+                <p>Username:</p>
+                <input type="text" name="username" placeholder="Enter your username">
+                <br>
+                <br>
+                <p>Password:</p>
+                <input type="password" name="password" placeholder="Enter password">
+                <br>
+                <br>
+                <button> <input type="submit" name="" value="Login"></button>
+              </form>
                 
                 <div class="info">
                     
@@ -57,46 +49,9 @@
                  </div>
              </li>
           </ul>
-          <button> <input type="submit" name="" value="Login"></button>
+          
   
            </div>
-              <!-- <div id="teacher" class="teacher">
-                <h1>Teacher Login</h1>
-              <ul>
-                
-                <label for="usermail">Your Mail id</label>
-                <li>
-                    <input type="email" id="usermail">
-                    <i class=" icon fa-regular fa-envelope"></i>
-                </li> -->
-                 <!-- <label for="userid">Userid</label> -->
-                 <!-- <li>
-                    <input type="text" id="userid>
-                    <i class="fa-duotone fa-user"></i>
-                 </li> -->
-                 <!-- <label for="password">Password</label>
-              
-                 <li>
-                    <input type="password"  id="userpassword">
-                    <i class=" icon fa-solid fa-lock"></i>
-                 </li>
-                 <li>
-                    
-                    <div class="info">
-                        <input type="checkbox" id="remember">
-                     <label for="remember">Remember me?</label>
-                     <P id="newteacher"> <a href="createaccount.html">Create New Account?</a></P>
-                     </div>
-                 </li>
-              </ul>
-              <button>  <a href="portal.html">Sign In</a></button>
-                  </div>
-
-              </div> 
-      
-          </div>
-           -->
-   
 
 
 

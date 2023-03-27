@@ -22,7 +22,7 @@ class Room(models.Model):
     teacher=models.CharField(max_length=100)
     name = models.CharField(max_length=200) #set it to host.subject_name during declaration by default
     description = models.TextField(null=True, blank=True)
-    email = models.EmailField(null=False)
+    
     avatar = models.ImageField(null=True, default="avatar.svg")
 
     #assignment
@@ -66,6 +66,7 @@ class Teacher(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,primary_key=True,related_name='Teacher')
     name=models.CharField(max_length=250)
     subject_name = models.CharField(max_length=250,null=True)
+    email = models.EmailField(null=False)
     rooms=models.ManyToManyField(Room,related_name="teacher_rooms",blank=True)
     bio = models.TextField(null=True)
     phone = models.IntegerField(null=True)

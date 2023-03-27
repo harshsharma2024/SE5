@@ -7,19 +7,19 @@ from .models import Room, User,Student,Teacher
 class UserForm(UserCreationForm):
     class Meta():
         model = User
-        fields = ['email','password1','password2']
+        fields = ['username','password1','password2']
 
 #for registration
 class StudentRegisterForm(ModelForm):
     class Meta():
         model = Student
-        fields = ['name','roll_no','department']
+        fields = ['name','email','roll_no','department']
 
 
 class TeacherRegisterForm(ModelForm):
     class Meta():
         model = Teacher
-        fields = ['name','subject_name']
+        fields = ['name','email','subject_name']
 
 
 class RoomForm(ModelForm):

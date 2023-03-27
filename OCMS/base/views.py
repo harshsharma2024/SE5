@@ -20,22 +20,34 @@ def StudentLogin(request):
     #     return redirect('portal')
     
     if request.method=='POST':
-        email=request.POST.get('email')
+        username=request.POST.get('username')
         password = request.POST.get('password')
 
-        try:
-            user=User.objects.get(email=email)
-        except:
-            messages.error(request, 'User does not exist!!')
+        # try:
+        #     user=User.objects.get(email=email)
+        # except:
+        #     messages.error(request, 'User does not exist!!')
         
-        user = authenticate(request, email=email, password=password)
+        # user = authenticate(request, email=email, password=password)
 
-        if user is not None:
-            login(request, user)
-            return redirect('portal')
+        # if user is not None:
+        #     login(request, user)
+        #     return redirect('portal')
+        # else:
+        #     messages.error(request, 'Username OR password does not exit')
+
+        if user := authenticate(username=username, password=password):
+            if user.is_active:
+                login(request, user)
+                messages.success(request, 'Logged in successfully!')
+                return redirect('portal')
+
+            else:
+                return HttpResponse("Account not active")
+
         else:
-            messages.error(request, 'Username OR password does not exit')
-
+            messages.error(request, "Invalid Details")
+            return redirect('student-login')
     return render(request,'base/login_student.html',{})
 
 #TeacherLogin
@@ -57,7 +69,7 @@ def StudentRegister(request):
         student_form = StudentRegisterForm(request.POST)
         user_form=UserForm(request.POST)
         if user_form.is_valid() and student_form.is_valid():
-            if user_form.DoesNotExist:
+            # if user_form.DoesNotExist:
                 user=user_form.save(commit=False)
                 user.is_student=True
                 user.save()
@@ -66,7 +78,7 @@ def StudentRegister(request):
                 profile.user=user
                 profile.save()
                 return redirect('portal')
-            else:
+            # else:
                 messages.error(request,'User already exists with this mailID')
         else:
             messages.error(request,'An error occured during Student Registration')
