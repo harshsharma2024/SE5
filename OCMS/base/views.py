@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import User ,Teacher,Student,Room,Message
-from .forms import StudentRegisterForm,TeacherRegisterForm,RoomForm,StudentUpdateForm,TeacherUpdateForm,UserForm
+from base import models
+from .forms import StudentRegisterForm,TeacherRegisterForm,StudentUpdateForm,TeacherUpdateForm,UserForm,CreateRoomForm
 
-
+@login_required(login_url='check')
 def portal(request):
     return render(request,'base/portal.html',{})
 
@@ -90,7 +92,42 @@ def StudentRegister(request):
 
     return render(request,'base/student_register.html',context)
 
-# def TeacherRegister(request):
+def TeacherRegister(request):
+    user_type="student"
+    # form = StudentRegisterForm()
+
+    if request.method == 'POST':
+        Teacher_form = TeacherRegisterForm(request.POST)
+        user_form=UserForm(request.POST)
+        if user_form.is_valid() and Teacher_form.is_valid():
+            # if user_form.DoesNotExist:
+                user=user_form.save(commit=False)
+                user.is_teacher=True
+                user.save()
+
+                profile=Teacher_form.save(commit=False)
+                profile.user=user
+                profile.save()
+                return redirect('portal')
+            # else:
+                messages.error(request,'User already exists with this mailID')
+        else:
+            messages.error(request,'An error occured during Teacher Registration')
+    else:
+        user_form=UserForm()
+        Teacher_form=TeacherRegisterForm()
+
+    context={'user_form':user_form,'teacher_form':Teacher_form}
+
+    return render(request,'base/teacher_register.html',context)
+
+
+
+
+
+
+
+
 #     user_type="teacher"
 #     form = TeacherRegisterForm()
 
@@ -106,6 +143,45 @@ def StudentRegister(request):
 #             messages.error(request,'An error occured during Teacher Registration')
 
 #     return render(request,'base/teacher_register.html',{'form':form,'user_type':user_type})
+
+
+def TeacherLogin(request):
+    # if request.user.is_authenticated:
+    #     return redirect('portal')
+    
+    if request.method=='POST':
+        username=request.POST.get('username')
+        password = request.POST.get('password')
+
+        # try:
+        #     user=User.objects.get(email=email)
+        # except:
+        #     messages.error(request, 'User does not exist!!')
+        
+        # user = authenticate(request, email=email, password=password)
+
+        # if user is not None:
+        #     login(request, user)
+        #     return redirect('portal')
+        # else:
+        #     messages.error(request, 'Username OR password does not exit')
+
+        if user := authenticate(username=username, password=password):
+            if user.is_active:
+                login(request, user)
+                messages.success(request, 'Logged in successfully!')
+                return redirect('portal')
+
+            else:
+                return HttpResponse("Account not active")
+
+        else:
+            messages.error(request, "Invalid Details")
+            return redirect('teacher-login')
+    return render(request,'base/login_teacher.html',{})
+
+
+
 
 
 # def room(request,pk):
@@ -136,6 +212,26 @@ def StudentRegister(request):
 #     return result
 
 
+def create_room(request):
+    form=CreateRoomForm()
+    # Teacher_User=request.user.Teacher
+    Teacher_User=get_object_or_404(models.Teacher, pk=request.user.id)
+    if request.method == 'POST':
+
+        new_room=Room.objects.create(
+            avatar=request.POST.get('avatar'),
+            course_id=request.POST.get('course_id'),
+            name=request.POST.get('name'),
+            description=request.POST.get('description'),
+            # room=request.POST.get('room_id'),
+            teacher=Teacher_User.name,
+        )
+        Teacher_User.rooms.add(new_room)
+        return redirect('portal')
+
+    context={'form':form}
+
+    return render(request, 'base/create_room.html',context)
 
 
 

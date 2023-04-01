@@ -22,11 +22,6 @@ class TeacherRegisterForm(ModelForm):
         fields = ['name','email','subject_name']
 
 
-class RoomForm(ModelForm):
-    class Meta():
-        model = Room
-        fields = '__all__'
-        exclude = ['host', 'students']
 
 class StudentUpdateForm(ModelForm):
     class Meta():
@@ -38,6 +33,11 @@ class TeacherUpdateForm(ModelForm):
         model=Teacher
         fields='__all__'
 
+
+class CreateRoomForm(ModelForm):
+    class Meta():
+        model=Room
+        fields=['avatar','course_id','name','description','room_code']
 
 
 

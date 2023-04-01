@@ -18,15 +18,17 @@ class User(AbstractUser):
 
 class Room(models.Model):
     # host = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True)
-    course_id=models.IntegerField(primary_key=True)
+    course_id=models.CharField(max_length=100, primary_key=True)
     teacher=models.CharField(max_length=100)
     name = models.CharField(max_length=200) #set it to host.subject_name during declaration by default
     description = models.TextField(null=True, blank=True)
     
     avatar = models.ImageField(null=True, default="avatar.svg")
+    room_code=models.CharField(max_length=100)
 
     #assignment
     #lectures
+    #files
 
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

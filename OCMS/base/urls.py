@@ -10,12 +10,13 @@ urlpatterns=[
 
     path("login_student/",views.StudentLogin,name="student-login"),
     path("register_student/",views.StudentRegister,name="student-register"),
-    # path("register_teacher/",views.TeacherRegister,name="teacher-register"),
-    # path("login_teacher/",views.TeacherLogin,name="teacher-login"),
+    path("register_teacher/",views.TeacherRegister,name="teacher-register"),
+    path("login_teacher/",views.TeacherLogin,name="teacher-login"),
     # path('room/<str:pk>/',views.room,name="room"),
-    # path('classroom/<str:pk>/',views.ClassRoom,name="classroom"),
+    # path('classroom/',views.ClassRoom,name="classroom"),
     # path('teacher_room/',views.TeacherRoom,name='teacher-room'),
-    # path('logout_student/',views.LogOutStudent,name="logout-student"),
+    path('create_room',views.create_room,name='create-room'),
+    path('logout_student/',views.LogOutStudent,name="logout-student"),
     # path('logout_teacher/',views.LogOutTeacher,name="logout-teacher"),
 
 
