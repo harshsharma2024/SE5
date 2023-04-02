@@ -27,13 +27,13 @@
         </div>
         <div class="update" id="update">
             <a href="{% url 'Professorprofileupdate' %}">Update Profile<i class=" icn fa-solid fa-caret-right"></i></a>
-            <a href="#">Activity<i class="icn fa-solid fa-caret-right"></i></a>
+            <a href="{% url 'tactivity' %}">Activity<i class="icn fa-solid fa-caret-right"></i></a>
             <a href="{% url 'ProfessorProfile' %}">Profile<i class="icn fa-solid fa-caret-right"></i></a>
             <a href="{% url 'logout-student' %}">Logout<i class="icn fa-solid fa-caret-right"></i></a>
         </div>
     </div>
 
-    <!-- <p> <h1> Website under Work !!!</h1></p> -->
+
     
     <div id="option" class="option">
       <ul>
@@ -42,26 +42,21 @@
            <img src="images/1414305.png"  class="img">
             <p style="font-size: 45px;">OCMS</p>
         </li> -->
-        {% comment %} <li>
-            <img src="{% static 'images/2741195.png' %}"  class="img">
-            <p><a href="#">Assignment</a></p>
-        </li> {% endcomment %}
-        {% comment %} <li>
-            <img src="{% static 'images/2741195.png' %}"  class="img">
-            <p> <a href="#">Test</a></p>
-        </li> {% endcomment %}
+        
+        
+        <li>
+            <img src=""  class="img">
+            <p></p>
+        </li>
         <li>
             <img src="{% static 'images/2741195.png' %}"  class="img">
-            <p><a href="#">Join Class</a></p>
+            <p><a href="{% url 'teacher-room' %}">Class Rooms</a></p>
         </li>
         <li>
             <img src="{% static 'images/2741195.png' %}"  class="img">
             <p><a href="#">Time Table</a></p>
         </li>
-        {% comment %} <li>
-            <img src="{% static 'images/2741195.png' %}"  class="img">
-            <p><a href="#">Message box</a></p>
-        </li> {% endcomment %}
+        
         <li>
             <img src="{% static 'images/2741195.png' %}"  class="img">
             <p><a href="{% url 'create-room' %}">Create  Room</a></p>

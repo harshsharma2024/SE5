@@ -19,9 +19,10 @@ urlpatterns=[
     #functionality 
     path("join_room/",views.Join,name="join"),
     path("sactivity/",views.sactivity,name="sactivity"),
+    path("tactivity/",views.tactivity,name="tactivity"),
     path("students/",views.students,name="students"),
-    path("sroom/<str:pk>/rstudents",views.rstudents,name="rstudents"),
-    path("troom/<str:pk>/trstudents",views.trstudents,name="trstudents"),
+    path("sroom/<str:pk>/rstudents/",views.rstudents,name="rstudents"),
+    path("troom/<str:pk>/trstudents/",views.trstudents,name="trstudents"),
 
     path('sroom/<str:pk>/',views.sroom,name="sroom"),
     path('troom/<str:pk>/',views.troom,name='troom'),
@@ -34,6 +35,7 @@ urlpatterns=[
     path('ProfessorProfile/',views.ProfessorProfile,name='ProfessorProfile'),
     path('studentprofileupdate/',views.studentprofileupdate,name='studentprofileupdate'),
     path('Professorprofileupdate/',views.Professorprofileupdate,name='Professorprofileupdate'),
+
 
 
 

@@ -37,7 +37,7 @@ class TeacherUpdateForm(ModelForm):
 class CreateRoomForm(ModelForm):
     class Meta():
         model=Room
-        fields=['avatar','course_id','name','description','room_code']
+        fields=['course_id','name','description','room_code']
 
 
 

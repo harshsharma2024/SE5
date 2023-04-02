@@ -226,6 +226,15 @@ def Join(request):
     context={'rooms':rooms}
     return render(request,'base/join_room.html',context)
 
+def firstword(a):
+    p=a.split(" ")
+    if p.size()>1:
+        res=p[0][0].upper()+p[1][0].upper()
+    else:
+        res=p[0][0].upper()
+
+    return res
+
 def sroom(request ,pk):
     room=Room.objects.get(id=pk)
     room_messages=room.message_set.all()
@@ -268,6 +277,14 @@ def sactivity(request):
 
     return render(request,'base/sactivity.html',context)
 
+def tactivity(request):
+    messages=Message.objects.filter(user=request.user)
+
+    context={'messages':messages}
+
+    return render(request,'base/tactivity.html',context)
+
+
 def students(request):
     students=Student.objects.all()
 
@@ -293,3 +310,100 @@ def trstudents(request,pk):
     context={'room':room,'students':students}
 
     return render(request,'base/trstudents.html',context)
+
+
+
+######Hunny code Update
+def Professorprofileupdate(request):
+    Teacher_User=get_object_or_404(Teacher,user=request.user)
+    dict={}
+    dict={'img':Teacher_User.avatar,'website':Teacher_User.websitelink,'name':Teacher_User.name,'Dep':Teacher_User.subject_name,'mail_id':Teacher_User.email,'bio':Teacher_User.bio,'phone':Teacher_User.phone}
+    if request.method=="POST":
+         
+         
+         image_=request.FILES.get('img')
+         Teacher_User.name=request.POST.get('name')
+         Teacher_User.websitelink=request.POST.get('website')
+         if image_==None:
+                Teacher_User.avatar=dict['img']
+                
+                
+                
+         else:
+                Teacher_User.avatar=request.FILES.get('img')
+                
+                  
+              
+         Teacher_User.subject_name=request.POST.get('dep')
+         Teacher_User.bio=request.POST.get('bio')
+         
+         Teacher_User.phone=request.POST.get('phone')
+         Teacher_User.email=request.POST.get('email')
+         Teacher_User.save()
+         
+       
+     
+    return render(request,'base/Professorprofileupdate.html',dict)
+
+
+def studentProfile(request):
+    Student_User=get_object_or_404(Student,user=request.user)
+    dict={'img':Student_User.avatar,
+          'roll_no':Student_User.roll_no,
+          'name':Student_User.name,
+          'Dep':Student_User.department,
+          'mail_id':Student_User.email,
+          'bio':Student_User.bio,
+          'phone':Student_User.phone
+          }
+    return render(request,'base/studentProfile.html',dict)
+
+def ProfessorProfile(request):
+    Teacher_User=get_object_or_404(Teacher,user=request.user)
+    
+    dict={'img':Teacher_User.avatar,
+          'website':Teacher_User.websitelink,
+          'name':Teacher_User.name,
+          'Dep':Teacher_User.subject_name,
+          'mail_id':Teacher_User.email,
+          'bio':Teacher_User.bio,
+          'phone':Teacher_User.phone,
+          
+          }
+
+    
+    
+    return render(request,'base/ProfessorProfile.html',dict)
+
+
+def studentprofileupdate(request):
+    Teacher_User=get_object_or_404(Student,user=request.user)
+    dict={}
+    dict={'img':Teacher_User.avatar,'roll_no':Teacher_User.roll_no,'name':Teacher_User.name,'mail_id':Teacher_User.email,'bio':Teacher_User.bio,'phone':Teacher_User.phone}
+    if request.method=="POST":
+         
+         
+         image_=request.FILES.get('img')
+         Teacher_User.name=request.POST.get('name')
+         Teacher_User.roll_no=request.POST.get('roll_no')
+         if image_==None:
+                Teacher_User.avatar=dict['img']
+                
+                
+                
+         else:
+                Teacher_User.avatar=request.FILES.get('img')
+                
+                  
+              
+        #  Teacher_User.subject_name=request.POST.get('dep')
+         Teacher_User.bio=request.POST.get('bio')
+         
+         Teacher_User.phone=request.POST.get('phone')
+         Teacher_User.email=request.POST.get('email')
+         Teacher_User.save()
+       
+     
+    return render(request,'base/studentprofileupdate.html',dict)
+
+

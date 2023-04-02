@@ -11,6 +11,7 @@
     
 </head>
 <body>
+    <div class="wrapper">
     <div class="nav">
         <i id="dropdown" class=" dropdown fa-solid fa-bars"></i>
      <div class="logo"><img src="{% static 'images/1414305.png' %}" class="img">
@@ -26,9 +27,9 @@
             <i class="dropdowm-icon fa-solid fa-caret-down"></i>
         </div>
         <div class="update" id="update">
-            <a href="#">Update Profile<i class=" icn fa-solid fa-caret-right"></i></a>
+            <a href="{% url 'studentprofileupdate' %}">Update Profile<i class=" icn fa-solid fa-caret-right"></i></a>
             <a href="{% url 'sactivity' %}">Activity<i class="icn fa-solid fa-caret-right"></i></a>
-            <a href="#">Profile<i class="icn fa-solid fa-caret-right"></i></a>
+            <a href="{% url 'studentProfile' %}">Profile<i class="icn fa-solid fa-caret-right"></i></a>
             <a href="{% url 'logout-student' %}">Logout<i class="icn fa-solid fa-caret-right"></i></a>
         </div>
     </div>
@@ -71,6 +72,7 @@
         <i class="fa-solid fa-chevron-left"></i>
       </div>
     </div>
+</div>
 
 
     {% block content %}

@@ -150,96 +150,108 @@ transform: scale(1);
 
 
 
-.wrapper7{
-    position: fixed;
-    top:20vh;
-    left:30vw;
-    background-color: #7a9299;
-   height: fit-content;
-   padding: 25px;
-   border-radius: 25px;
-   width: 60vw;
-  
- }
- 
- .userpic{
-     height: 150px;
-     width: 150px;
-     /* border-radius: 50%; */
- }
- .iconcontainer{
-     height: 40px;
-     width: 40px;
-     background-color: blue;
-     border-radius: 50%;
-     display: flex;
-     justify-content: center;
-     align-items: center;
- }
- .iconcontainer{
-     color:white
- }
- .line1{
-     display: flex;
-     gap:10px;
-     padding-bottom: 5px;
-     border-bottom: 1px solid black;
- }
- .content{
-     display: flex;
-     flex-direction: column;
-     row-gap: 10px;
-     background-color: white;
-     padding:19px;
-     margin-left: 20px;
-     margin-right: 20px;
-    
- }
- .herocontainer{
-     display: flex;
-     gap:20px;
-     justify-content: space-around;
- }
- 
- .leftpart{
-     display: flex;
-     flex-direction: column;
-     row-gap: 10px;
- }
- #updatebn{
-     color:white;
-     border:none;
-     padding: 5px;
-     /* font-size: larger; */
-     background-color: blue;
-     border-radius: 7px;
- }
- 
- .rightpart ul li{
-     list-style: none;
-     font-size: larger;
-     border-bottom: 1px solid black;
-     padding: 6px;
-     opacity: 0.8;
-     
- 
- }
- .rightpart ul{
-     display: flex;
-     flex-direction: column;
-     row-gap: 20px;
- }
- li{
-     display: flex;
-     gap:5px;
- }
- .s::after{
-     content:":"
- }
- .a{
-     text-decoration: none;
-     color: white;
- }
 
 
 
+
+
+
+
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
+
+
+/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.wrapper2{
+    /* height: 90vh;
+    width: 80vw; */
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    position: absolute;
+    top:15vh;
+   left: 22vw;
+   
+}
+.classicon{
+    height: 80px;
+    width: 80px;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: larger;
+}
+.classinfo{
+    /* margin: 0 auto; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-template-rows: 1fr 1fr 1fr; */
+ 
+    gap: 15px;
+    column-gap: 50px;
+    row-gap: 25px;
+}
+
+.classinfo .card{
+    height: 40vh;
+    width: 20vw;
+    background-color: aliceblue;
+    display: flex;
+    gap: 5px;
+    box-shadow: 5px 5px 15px;
+    flex-direction: column;
+justify-content: center;
+align-items: center;
+transition: transform;
+transition-duration: 1.5s;
+}
+
+.card button a{
+    text-decoration: none;
+    color: white;
+}
+.card button{
+    padding: 10px;
+    border: none;
+    background-color: rgb(34, 34, 99);
+    color: white;
+}
+.card button:hover{
+    background-color: rgb(115, 115, 228);
+}
+.card:hover{
+    transform: scale(1.07);
+}
+
+.card input{
+    border: none;
+    background: transparent;
+    padding: 6px;
+    border: 2px solid blue;
+    outline: none;
+}
+
+.below{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.below button{
+    width: 70%;
+    margin: 0 auto;
+}
+
+#buttonset{
+
+    width: 100%;
+    position: relative;
+    top: 10px;
+}

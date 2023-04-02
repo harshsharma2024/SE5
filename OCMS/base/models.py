@@ -27,7 +27,7 @@ class Room(models.Model):
     room_code=models.CharField(max_length=100)
 
     #test
-    #assignment
+    # assignments
     #lectures
     #files
 
@@ -104,6 +104,7 @@ class ClassRoom(models.Model):
     
     
 
+# class Assignment(models.Model):
 
 
 
