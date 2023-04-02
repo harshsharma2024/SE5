@@ -2,15 +2,33 @@
 
 {% block content %}
 
-    <div class="progress">
-    {% for message in messages %}
-        <div>
-            <p>
-            @{{message.user}}  {{message.created|timesince}} ago</p>
-            <p>Chats in Room {{message.room.name}}</p>
-            <p>{{message.body}}</p>
+
+    <div class="activitycontainer">
+        <h1>Recent Activity....</h1>
+        <div class="activitybox">
+            
+            {% for message in messages %}
+
+               <div class="activitycontent">
+                <div class="activityl1">
+                <p>@{{message.user}}</p>
+                <p>{{message.created}}</p>
+             
+                </div>
+                <p class="chatroom">Chats in Room {{message.room.name}}</p>
+                <br>
+                <p>{{message.body}}</p>
+            </div>
+            {% endfor %}
+            
         </div>
-    {% endfor %}
     </div>
 
-{% endblock content %}
+    
+    {% endblock content %}
+
+
+
+<script src="portal.js"></script>
+</body>
+</html>

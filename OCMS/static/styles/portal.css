@@ -162,12 +162,13 @@ transform: scale(1);
 /* +++++++++++ inside room+++++++++*/
 
 .activitycontainer{
-    width: 80vw;
+    width: 100vw;
     height: 90vh;
-    background-color:#e0ebeb;
+    background-color:#ccdbdb;
+    /* background-color: red; */
     position: absolute;
     top: 10vh;
-    left: 20vw;
+    /* left: 20vw; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -176,7 +177,7 @@ transform: scale(1);
 }
 .activitybox{
     
-    width: 70%;
+    width: 56%;
     height: 80%;
     background-color: lightgray;
     padding: 20px;
@@ -186,15 +187,23 @@ transform: scale(1);
     font-size: larger;
     overflow-y: scroll;
     display: flex;
-    flex-direction: column;
+    flex-direction: column;                        
     gap: 10px;
    
 }
-.activitybox p{
-    background-color: antiquewhite;
+.activitycontent{
+    background-color:lightblue;
+    border-radius: 14px;
     padding: 15px;
 }
-
+.chatroom{
+    border-bottom: 2px solid white;
+}
+.activityl1{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 
 
 /* +++++++++++++++++++++++++++++++Classroom++++++++++++++++++++++++++++++++++++++++++++ */
