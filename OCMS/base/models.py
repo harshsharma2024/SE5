@@ -26,6 +26,7 @@ class Room(models.Model):
     avatar = models.ImageField(null=True, default="avatar.svg")
     room_code=models.CharField(max_length=100)
 
+    #test
     #assignment
     #lectures
     #files

@@ -243,6 +243,23 @@ def sroom(request ,pk):
 
     return render(request,'base/sroom.html',context)
 
+
+def troom(request ,pk):
+    room=Room.objects.get(id=pk)
+    room_messages=room.message_set.all()
+
+    if request.method =='POST':
+        message=Message.objects.create(
+            user=request.user,
+            room=room,
+            body=request.POST.get('body')
+        )
+        return redirect('troom',pk=room.id)
+    
+    context={'room':room,'room_messages':room_messages}
+
+    return render(request,'base/troom.html',context)
+
 @login_required(login_url='check')
 def sactivity(request):
     messages=Message.objects.filter(user=request.user)
@@ -266,3 +283,13 @@ def rstudents(request, pk):
     context={'room':room,'students':students}
 
     return render(request,'base/rstudents.html',context)
+
+
+def trstudents(request,pk):
+    room=Room.objects.get(id=pk)
+
+    students=Student.objects.filter(rooms__id=pk)
+
+    context={'room':room,'students':students}
+
+    return render(request,'base/trstudents.html',context)

@@ -5,10 +5,9 @@
 
 <div class="progress">
     {% for room in rooms %}
-        <div><p>{{room.name}}</p>
+        <div><p><a href="{% url 'troom' room.id %}">{{room.name}}</a></p>
             <p>{{room.teacher}}</p>
-            <p>{{room.updated}}</p>
-            <p>{{room.created}}</p>
+            
         </div>
 
     {% endfor %}
