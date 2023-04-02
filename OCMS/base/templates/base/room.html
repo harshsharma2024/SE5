@@ -1,29 +1,7 @@
-{% extends 'main.html' %}
+{% include 'base/room_format.html' %}
 
 {% block content %}
-
-<style>
-    .room-container {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-    }
-</style>
-
-<div class="room-container">
-
-    <div>
-        <h1>{{room.name}}</h1>
-        <p>{{room.description}}</p>
-        <a href="#">Lectures</a>
-        <a href="#">Files</a>
-        <a href="#">Enrolled Students</a>
-    </div>
-
-    <div>
-        
-            
-
-            <div>
+        <div>
                 <h3>Conversation</h3>
                 <hr>
                 {% for message in room_messages %}
@@ -36,9 +14,9 @@
                     <hr>
                 </div>
                 {% endfor %}
-            </div>
+        </div>
 
-
+        <div>
             {% if request.user.is_authenticated %}
                 <div class="comment-form">
                     <form method="POST" action="">
@@ -48,9 +26,6 @@
                 </div>
             {% endif %}
 
-    </div>    
-</div>
-    
-
+        </div>    
 
 {% endblock content %}

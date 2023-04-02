@@ -14,6 +14,11 @@
         <div>
             <h1>{{room.name}}</h1>
             <p>{{room.description}}</p>
+            <a href="{% url 'sroom' room.id %}">Chat</a>
+            <a href="#">Assignment</a>
+            <p><a href="#">Lectures</a></p>
+            <a href="#">Files</a>
+            <a href="{% url 'rstudents' room.id %}">Students</a>
             
         </div>
 
@@ -47,8 +52,9 @@
             </form>
         </div>
         {% endif %}
-    </div>
+        </div>
 
+    </div>
 </div>
 
 
