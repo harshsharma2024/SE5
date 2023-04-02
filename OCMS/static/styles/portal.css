@@ -24,6 +24,7 @@ body{
   overflow: hidden;
   transition: all;
   transition-duration: 1.5s;
+  z-index:+5;
 }
 .option ul{
     display: flex;
@@ -107,7 +108,7 @@ a:hover{
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    
+    z-index: +1;
    background-color: rgb(34, 34, 99);
    padding: 16px;
    position: absolute;
@@ -154,7 +155,7 @@ transform: scale(1);
     left:40vw;
     font-size: 40px;
     color: green;
-}
+} 
 
 
 
@@ -319,6 +320,38 @@ transform: scale(1);
 }
 
 
+/* +++++++++ all students inside room +++++ */
 
+.allstudentcontainer{
+    width: 100%;
+     padding-top: 4%;
+    overflow: scroll;
+    height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+   row-gap: 15px;
+    
+}
+.studentphoto{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+
+
+}
+.studentcard{
+    width:85%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background-color:rgb(177, 152, 152);
+    color: white;
+    border-radius: 10px;
+    max-height: 250px;
+}
 
 
