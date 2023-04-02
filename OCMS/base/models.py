@@ -18,7 +18,7 @@ class User(AbstractUser):
 
 class Room(models.Model):
     # host = models.ForeignKey(Teacher, on_delete=models.SET_NULL, null=True)
-    course_id=models.CharField(max_length=100, primary_key=True)
+    course_id=models.CharField(max_length=100)
     teacher=models.CharField(max_length=100)
     name = models.CharField(max_length=200) #set it to host.subject_name during declaration by default
     description = models.TextField(null=True, blank=True)
@@ -72,6 +72,7 @@ class Teacher(models.Model):
     rooms=models.ManyToManyField(Room,related_name="teacher_rooms",blank=True)
     bio = models.TextField(null=True)
     phone = models.IntegerField(null=True)
+    websitelink=models.URLField(max_length=200,null=True)
 
     avatar = models.ImageField(null=True, default="avatar.svg")
 

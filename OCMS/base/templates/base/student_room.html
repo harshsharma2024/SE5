@@ -1,0 +1,14 @@
+{% include 'student_main.html' %}
+
+{% block content %}
+
+    <div class="progress">
+    {% for room in rooms %}
+    <div><p><a href ="{% url 'sroom' room.id %}">{{room.name}}</a></p>
+        <p>{{room.avatar}}</p>
+    </div>
+
+    {% endfor %}
+    </div>
+
+{% endblock content %}

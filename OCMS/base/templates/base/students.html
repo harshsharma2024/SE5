@@ -1,0 +1,19 @@
+{% include 'student_main.html' %}
+
+
+
+{% block content %}
+<div class="progress">
+
+    {% for student in students %}
+    <div> <p>{{student.name}}</p>
+        <p>{{student.roll_no}}</p>
+        <p>{{student.department}}</p>
+        <p>{{student.email}}</p>
+    </div>
+
+    {% endfor %}
+</div>
+{% endblock content %}
+
+

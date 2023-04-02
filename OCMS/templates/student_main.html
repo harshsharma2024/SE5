@@ -27,7 +27,7 @@
         </div>
         <div class="update" id="update">
             <a href="#">Update Profile<i class=" icn fa-solid fa-caret-right"></i></a>
-            <a href="#">Activity<i class="icn fa-solid fa-caret-right"></i></a>
+            <a href="{% url 'sactivity' %}">Activity<i class="icn fa-solid fa-caret-right"></i></a>
             <a href="#">Profile<i class="icn fa-solid fa-caret-right"></i></a>
             <a href="{% url 'logout-student' %}">Logout<i class="icn fa-solid fa-caret-right"></i></a>
         </div>
@@ -38,15 +38,16 @@
     <div id="option" class="option">
       <ul>
      
-        
-        
+       
+
         <li>
             <img src=""  class="img">
-            <p> <a href="#"></a></p>
+            <p></p>
         </li>
+        
         <li>
             <img src="{% static 'images/2741195.png' %}"  class="img">
-            <p><a href="#">Class Rooms</a></p>
+            <p><a href="{% url 'student-room' %}">Class Room</a></p>
         </li>
         <li>
             <img src="{% static 'images/2741195.png' %}"  class="img">
@@ -56,17 +57,14 @@
             <img src="{% static 'images/2741195.png' %}"  class="img">
             <p><a href="#">Message box</a></p>
         </li> -->
+        
         <li>
             <img src="{% static 'images/2741195.png' %}"  class="img">
-            <p><a href="{% url 'create-room' %}">Create  Room</a></p>
+            <p><a href="{% url 'join' %}">Join Class</a></p>
         </li>
         <li>
             <img src="{% static 'images/2741195.png' %}"  class="img">
-            <p><a href="#">Professors</a></p>
-        </li>
-        <li>
-            <img src="{% static 'images/2741195.png' %}"  class="img">
-            <p><a href="#">Students</a></p>
+            <p><a href="{% url 'students' %}">Students</a></p>
         </li>
       </ul>
       <div id="back" class="back">
@@ -75,7 +73,10 @@
     </div>
 
 
-    
+    {% block content %}
+
+
+    {% endblock %}
 
 
 

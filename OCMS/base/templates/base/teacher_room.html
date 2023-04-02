@@ -1,0 +1,17 @@
+{% include 'teacher_main.html' %}
+
+{% block content %}
+
+
+<div class="progress">
+    {% for room in rooms %}
+        <div><p>{{room.name}}</p>
+            <p>{{room.teacher}}</p>
+            <p>{{room.updated}}</p>
+            <p>{{room.created}}</p>
+        </div>
+
+    {% endfor %}
+</div>
+
+{% endblock content %}

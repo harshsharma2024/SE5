@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
+from django.views.decorators.csrf import csrf_protect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,24 @@ from .forms import StudentRegisterForm,TeacherRegisterForm,StudentUpdateForm,Tea
 @login_required(login_url='check')
 def portal(request):
     return render(request,'base/portal.html',{})
+
+@login_required(login_url='check')
+def student_room(request):
+
+    Student_User=get_object_or_404(Student,user=request.user)
+    rooms=Student_User.rooms.all
+
+    context={'rooms':rooms}
+    return render(request,'base/student_room.html',context)
+
+@login_required(login_url='check')
+def teacher_room(request):
+    # Teacher_User=Teacher.objects.get(user=request.user)
+    Teacher_User=get_object_or_404(Teacher, user=request.user)
+    rooms=Teacher_User.rooms.all
+    context={'rooms':rooms}
+    return render(request,'base/teacher_room.html',context)
+
 
 def LandingPage(request):
     return render(request,'base/landingpage.html',{})
@@ -42,7 +61,7 @@ def StudentLogin(request):
             if user.is_active:
                 login(request, user)
                 messages.success(request, 'Logged in successfully!')
-                return redirect('portal')
+                return redirect('student-room')
 
             else:
                 return HttpResponse("Account not active")
@@ -79,7 +98,7 @@ def StudentRegister(request):
                 profile=student_form.save(commit=False)
                 profile.user=user
                 profile.save()
-                return redirect('portal')
+                return redirect('student-room')
             # else:
                 messages.error(request,'User already exists with this mailID')
         else:
@@ -108,7 +127,7 @@ def TeacherRegister(request):
                 profile=Teacher_form.save(commit=False)
                 profile.user=user
                 profile.save()
-                return redirect('portal')
+                return redirect('teacher-login')
             # else:
                 messages.error(request,'User already exists with this mailID')
         else:
@@ -122,27 +141,6 @@ def TeacherRegister(request):
     return render(request,'base/teacher_register.html',context)
 
 
-
-
-
-
-
-
-#     user_type="teacher"
-#     form = TeacherRegisterForm()
-
-#     if request.method == 'POST':
-#         form = TeacherRegisterForm(request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             user.is_teacher=True
-#             user.save()
-#             login(request,user)
-#             return redirect('portal')
-#         else:
-#             messages.error(request,'An error occured during Teacher Registration')
-
-#     return render(request,'base/teacher_register.html',{'form':form,'user_type':user_type})
 
 
 def TeacherLogin(request):
@@ -170,7 +168,7 @@ def TeacherLogin(request):
             if user.is_active:
                 login(request, user)
                 messages.success(request, 'Logged in successfully!')
-                return redirect('portal')
+                return redirect('teacher-room')
 
             else:
                 return HttpResponse("Account not active")
@@ -183,39 +181,11 @@ def TeacherLogin(request):
 
 
 
-
-# def room(request,pk):
-#     room=Room.objects.get(id=pk)
-#     room_messages=room.message_set.all()
-#     # students=room.students.all()
-#     students=std(room)
-
-#     if request.method == 'POST':
-#         message=Message.objects.create(
-#             user=request.user,
-#             room=room,
-#             body=request.POST.get('body')
-#         )
-#         #adding students to be sorted
-#         return redirect('room',pk=room.id)
-    
-#     context={'room':room,'room_messages':room_messages,'students':students}
-
-#     return render(request,'base/room.html',context)
-
-# def std(self,request):
-#     rooms=request.GET.get('rooms')
-
-#     result = Student.objects.filter(
-#         rooms=rooms
-#     )
-#     return result
-
-
 def create_room(request):
     form=CreateRoomForm()
     # Teacher_User=request.user.Teacher
-    Teacher_User=get_object_or_404(models.Teacher, pk=request.user.id)
+    Teacher_User=get_object_or_404(Teacher, user=request.user)
+
     if request.method == 'POST':
 
         new_room=Room.objects.create(
@@ -223,21 +193,76 @@ def create_room(request):
             course_id=request.POST.get('course_id'),
             name=request.POST.get('name'),
             description=request.POST.get('description'),
+            room_code=request.POST.get('room_code'),
             # room=request.POST.get('room_id'),
             teacher=Teacher_User.name,
         )
         Teacher_User.rooms.add(new_room)
-        return redirect('portal')
+        return redirect('teacher-room')
 
     context={'form':form}
 
     return render(request, 'base/create_room.html',context)
 
+@csrf_protect
+def Join(request):
 
+    Student_User=get_object_or_404(Student, user=request.user)
 
+    rooms=Room.objects.all()
 
+    if request.method=='POST':
+        room_id=request.POST.get('room_id')
+        code=request.POST.get('code')
+        room=Room.objects.get(id=room_id)
+        print('checkingg...')
+        if (code==room.room_code):
 
+            Student_User.rooms.add(room)
+        
+        else:
+            messages.error(request,"Code don't match !!!")
+ 
+    context={'rooms':rooms}
+    return render(request,'base/join_room.html',context)
 
+def sroom(request ,pk):
+    room=Room.objects.get(id=pk)
+    room_messages=room.message_set.all()
+    participants=Student.objects.filter(rooms__id=pk)
 
+    if request.method=='POST':
+        message=Message.objects.create(
+            user=request.user,
+            room=room,
+            body=request.POST.get('body')
+        )
+        return redirect('sroom',pk=room.id)
+    
+    context={'room':room,'room_messages':room_messages,'participants':participants}
 
+    return render(request,'base/sroom.html',context)
 
+@login_required(login_url='check')
+def sactivity(request):
+    messages=Message.objects.filter(user=request.user)
+
+    context={'messages':messages}
+
+    return render(request,'base/sactivity.html',context)
+
+def students(request):
+    students=Student.objects.all()
+
+    context={'students':students}
+
+    return render(request,'base/students.html',context)
+
+def rstudents(request, pk):
+    room=Room.objects.get(id=pk)
+
+    students=Student.objects.filter(rooms__id=pk)
+
+    context={'room':room,'students':students}
+
+    return render(request,'base/rstudents.html',context)
