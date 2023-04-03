@@ -364,3 +364,99 @@ transform: scale(1);
 }
 
 
+
+/* assignment addition/ lectures */
+
+
+.assrightcontainer{
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 5px solid white;
+    border-radius: 10px;
+    background-color: white;
+}
+.assignmentnavbar{
+    margin-top: 1%;
+    width: 100%;
+display: flex;
+ /* justify-content: space-around; */
+    background-color:rgb(34, 34, 99);
+    color: white;
+    padding: 16px;
+    /* padding-right: 40px; */
+    border-radius: 10px;
+    gap: 68px;
+
+}
+.assignmentwrapper{
+    margin-top: 2%;
+display: flex;
+flex-direction: column;
+
+gap: 10px;
+height: 65vh;
+overflow-y: scroll;
+width: 100%;
+}
+.assignment{
+    
+    display: flex;
+    justify-content: space-between;
+    background-color:rgb(243, 233, 233);
+    /* color: white; */
+    padding: 16px;
+    border-radius: 10px;
+}
+.assignment a{
+    text-decoration: none;
+    color: white;
+}
+.assignment button{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(34, 34, 99);
+    color: white;
+    border: none;
+    border: 2px solid rgb(236, 230, 228);
+}
+#uploadassignment{
+    position: absolute;
+    bottom:12vh;
+    padding: 16px;
+   width:53%;
+    color: white;
+    z-index: +20;
+    background-color: rgb(153, 158, 153);
+    border-radius: 10px;
+
+    font-size: larger;
+}
+
+
+/* all student/prof list */
+
+.allstudentlist{
+    width: 100%;
+    position: absolute;
+    top: 15vh;
+    left: 25vw;
+    display: flex;
+    flex-direction: column;
+    width: 75vw;
+    overflow-y: scroll;
+    height: 85vh;
+    overflow-x: hidden;
+}
+.allstudentlistcontainer{
+    width: 75vw;
+   overflow-y: scroll;
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 25px;
+}

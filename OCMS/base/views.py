@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .models import User ,Teacher,Student,Room,Message,Files,Lectures
 from base import models
-from .forms import StudentRegisterForm,TeacherRegisterForm,StudentUpdateForm,TeacherUpdateForm,UserForm,CreateRoomForm,FileForm
+from .forms import StudentRegisterForm,TeacherRegisterForm,StudentUpdateForm,TeacherUpdateForm,UserForm,CreateRoomForm,FileForm,LectureForm
 
 @login_required(login_url='check')
 def portal(request):
@@ -292,6 +292,19 @@ def students(request):
 
     return render(request,'base/students.html',context)
 
+def tallstudents(request):
+    students=Student.objects.all()
+
+    context={'students':students}
+
+    return render(request,'base/tallstudents.html',context)
+
+def professors(request):
+    professors=Teacher.objects.all()
+    context={'professors':professors}
+
+    return render(request,'base/professors.html',context)
+
 def rstudents(request, pk):
     room=Room.objects.get(id=pk)
 
@@ -465,7 +478,7 @@ def tuploadlectures(request,pk):
     room=Room.objects.get(id=pk)
 
     if request.method=='POST':
-        form=FileForm(request.POST, request.FILES)
+        form=LectureForm(request.POST, request.FILES)
         if form.is_valid():
             file=form.save(commit=False)
             file.room=room
@@ -487,3 +500,4 @@ def slectures(request,pk):
 
     context={'room':room,'lectures':lectures}
     return render(request,"base/slectures.html",context)
+

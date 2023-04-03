@@ -21,6 +21,8 @@ urlpatterns=[
     path("sactivity/",views.sactivity,name="sactivity"),
     path("tactivity/",views.tactivity,name="tactivity"),
     path("students/",views.students,name="students"),
+    path("tallstudents/",views.tallstudents,name="tallstudents"),
+    path("professors/",views.professors,name="professors"),
     path("sroom/<str:pk>/rstudents/",views.rstudents,name="rstudents"),
     path("troom/<str:pk>/trstudents/",views.trstudents,name="trstudents"),
 

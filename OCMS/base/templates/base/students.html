@@ -3,15 +3,34 @@
 
 
 {% block content %}
-<div class="progress">
-
-    {% for student in students %}
-    <div> <p>{{student.name}}</p>
-        <p>{{student.roll_no}}</p>
-        <p>{{student.department}}</p>
-        <p>{{student.email}}</p>
+<div class="allstudentlist">
+    <div class="studentenroaled">
+       <h1>Student Enroled...</h1>
     </div>
+    <div class="allstudentlistcontainer">
 
-    {% endfor %}
-</div>
+        {% for student in students %}
+       <div class="studentcard">
+           <div class="studentphoto">
+            <img src="{{student.avatar.url}}" class="studentphoto">
+           </div>
+           <div>
+               <h3>{{student.roll_no}}</h3>
+           </div>
+           <div class="studentname">
+               <h3>{{student.name}}</h3>
+           </div>
+           <div class="studentmail">
+               <h3><a href="mailto:{{student.email}}">{{student.email}}</a></h3>
+           </div>
+           
+       </div>
+
+       {% endfor %}
+     
+       </div>
+    </div>
+  
 {% endblock content %}
+
+
