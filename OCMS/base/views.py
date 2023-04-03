@@ -4,9 +4,9 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import User ,Teacher,Student,Room,Message
+from .models import User ,Teacher,Student,Room,Message,Files,Lectures
 from base import models
-from .forms import StudentRegisterForm,TeacherRegisterForm,StudentUpdateForm,TeacherUpdateForm,UserForm,CreateRoomForm
+from .forms import StudentRegisterForm,TeacherRegisterForm,StudentUpdateForm,TeacherUpdateForm,UserForm,CreateRoomForm,FileForm
 
 @login_required(login_url='check')
 def portal(request):
@@ -406,4 +406,84 @@ def studentprofileupdate(request):
      
     return render(request,'base/studentprofileupdate.html',dict)
 
+#files
+def files(request,pk):
+    room=Room.objects.get(id=pk)
 
+    files=Files.objects.filter(room__id=pk)
+    context={'room':room,'files':files}
+    return render(request,"base/tfiles.html",context)
+
+def tuploadfiles(request,pk):
+    room=Room.objects.get(id=pk)
+
+    if request.method=='POST':
+        form=FileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file=form.save(commit=False)
+            file.room=room
+            file.uploaded_by=request.user.username
+            file.save()
+
+            return redirect('tfiles',pk=room.id)
+        
+    else:
+        form=FileForm()
+    context={'form':form,'room':room}   
+
+    return render(request,'base/tuploadfiles.html',context)
+
+def download_file_files(request, file_id):
+    file = get_object_or_404(Files, id=file_id)
+    response = HttpResponse(file.file, content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{file.name}"'
+    return response
+
+def sfiles(request,pk):
+    room=Room.objects.get(id=pk)
+    files=Files.objects.filter(room__id=pk)
+
+    context={'room':room,'files':files}
+    return render(request,"base/sfiles.html",context)
+
+#lectures
+def download_file_lectures(request, file_id):
+    file = get_object_or_404(Lectures, id=file_id)
+    response = HttpResponse(file.file, content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{file.name}"'
+    return response
+
+
+def lectures(request,pk):
+    room=Room.objects.get(id=pk)
+
+    lectures=Lectures.objects.filter(room__id=pk)
+    context={'room':room,'lectures':lectures}
+    return render(request,"base/tlectures.html",context)
+
+def tuploadlectures(request,pk):
+    room=Room.objects.get(id=pk)
+
+    if request.method=='POST':
+        form=FileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file=form.save(commit=False)
+            file.room=room
+            file.uploaded_by=request.user.username
+            file.save()
+
+            return redirect('tlectures',pk=room.id)
+        
+    else:
+        form=FileForm()
+    context={'form':form,'room':room}   
+
+    return render(request,'base/tuploadlectures.html',context)
+
+
+def slectures(request,pk):
+    room=Room.objects.get(id=pk)
+    lectures=Lectures.objects.filter(room__id=pk)
+
+    context={'room':room,'lectures':lectures}
+    return render(request,"base/slectures.html",context)

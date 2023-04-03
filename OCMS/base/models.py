@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.http import HttpResponse
+from django.urls import reverse
+from django.conf import settings
+import os
 
 # class Room:
 #     pass
@@ -105,6 +109,29 @@ class ClassRoom(models.Model):
     
 
 # class Assignment(models.Model):
+
+class Files(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    file = models.FileField(upload_to='files/')
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    uploaded_by = models.CharField(max_length=100)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('download_file_files', args=[str(self.id)])
+    
+
+class Lectures(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    file = models.FileField(upload_to='lectures/')
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+    uploaded_by = models.CharField(max_length=100)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('download_file_lectures', args=[str(self.id)])
 
 
 

@@ -37,6 +37,18 @@ urlpatterns=[
     path('Professorprofileupdate/',views.Professorprofileupdate,name='Professorprofileupdate'),
 
 
+    #files
+
+    path('troom/<str:pk>/files/',views.files,name='tfiles'),
+    path('troom/<str:pk>/files/upload/',views.tuploadfiles,name='tuploadfiles'),
+    path('download/file/<int:file_id>/', views.download_file_files, name='download_file_files'),
+    path('sroom/<str:pk>/files',views.sfiles,name="sfiles"),
+
+    #lectures
+    path('troom/<str:pk>/lectures/',views.lectures,name='tlectures'),
+    path('troom/<str:pk>/lectures/upload/',views.tuploadlectures,name='tuploadlectures'),
+    path('download/lecture/<int:file_id>/', views.download_file_lectures, name='download_file_lectures'),
+    path('sroom/<str:pk>/lectures',views.slectures,name="slectures"),
 
 
 ]

@@ -1,6 +1,7 @@
 from django.forms import ModelForm
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Room, User,Student,Teacher
+from .models import Room, User,Student,Teacher,Files
 
 
 #for StudentLoginForm in html file itself
@@ -40,4 +41,11 @@ class CreateRoomForm(ModelForm):
         fields=['course_id','name','description','room_code']
 
 
+class FileForm(ModelForm):
+    class Meta():
+        model=Files
+        fields=['name','description','file']
 
+        widgets={
+            'description': forms.Textarea(attrs={'rows':3}),
+        }
