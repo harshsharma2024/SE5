@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User,Student,Teacher,Room,Message,Files,Lectures,Tassignments,Meeting
+from .models import User,Student,Teacher,Room,Message,Files,Lectures,Tassignments,Meeting,Submissions,Ttest,Tsubmissions
 
 admin.site.register(User)
 admin.site.register(Student)
@@ -11,6 +11,10 @@ admin.site.register(Files)
 admin.site.register(Lectures)
 admin.site.register(Tassignments)
 admin.site.register(Meeting)
+admin.site.register(Submissions)
+admin.site.register(Ttest)
+admin.site.register(Tsubmissions)
+
 
 
 

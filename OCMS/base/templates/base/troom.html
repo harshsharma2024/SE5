@@ -23,7 +23,7 @@
               <a href="{% url 'tassignments' room.id %}">Assignment</a>
             </li>
             <li class="opt">
-             <a href="#">Test</a>
+             <a href="{% url 'ttest' room.id %}">Test</a>
             </li>
             <li class="opt">
                <a href="{% url 'tfiles' room.id %}">Files</a>
@@ -36,6 +36,12 @@
             </li>
             <li class="opt">
                 <a href="{% url 'trstudents' room.id %}">Students</a>
+            </li>
+            <li class="opt">
+                <a href="{% url 'tasubmission' room.id %}">AssignCheck</a>
+            </li>
+            <li class="opt">
+                <a href="{% url 'tasubmission' room.id %}">TestCheck</a>
             </li>
         </ul>
     

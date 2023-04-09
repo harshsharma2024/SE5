@@ -56,6 +56,27 @@ urlpatterns=[
     path('troom/<str:pk>/tassignments',views.tassignments,name='tassignments'),
     path('troom/<str:pk>/tassignments/upload',views.tuploadassignments,name='tuploadassignments'),
     path('download/tassignments/<int:file_id>/', views.download_file_tassignments, name='download_file_tassignments'),
+    path('sroom/str:<pk>/sassignments/',views.sassignments,name="sassignments"),
+    path('sroom/str:<pk>/sassignments/submission',views.submission,name="submission"),
+    path('troom/str:<pk>/assignmentsubmission',views.tasubmission,name="tasubmission"),
+    path('download/submissions/<int:file_id>/', views.download_file_submissions, name='download_file_submissions'),
+
+    #tests
+    path('troom/<str:pk>/ttest',views.ttest,name='ttest'),
+    path('troom/<str:pk>/ttest/upload',views.tuploadtest,name='tuploadtest'),
+    path('download/ttest/<int:file_id>/', views.download_file_ttest, name='download_file_ttest'),
+    path('sroom/str:<pk>/stest/',views.stest,name="stest"),
+    path('sroom/str:<pk>/stest/tsubmission',views.tsubmission,name="tsubmission"),
+    path('troom/str:<pk>/testsubmission',views.ttsubmission,name="ttsubmission"),
+    path('download/tsubmissions/<int:file_id>/', views.download_file_tsubmissions, name='download_file_tsubmissions'),
+
+
+
+
+
+
+
+
 
     #live meet
     path('troom/<str:pk>/createmeet',views.create_meeting,name='create_meeting'),

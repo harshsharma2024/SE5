@@ -42,10 +42,9 @@
     <div class="assrightcontainer">
         <h1>Assignments</h1>
         <div class="assignmentnavbar">
-            <p>Sl.no</p>
-            <p>NAME</p>
-            <p>Uploaded On</p>
-            <p>Deadline</p>
+            <p>Assignment</p>
+            <p>Roll no.</p>
+            <p>Submitted On</p>
             <p>Preview</p>
             <p>Download</p>
       
@@ -53,17 +52,15 @@
         </div>
         <div class="assignmentwrapper">
 
-        {% for assignment in assignments %}
+        {% for submission in submissions %}
 
         <div class="assignment">
-            <p>{{assignment.id}}</p>
-            <p>{{assignment.name}}</p>
-            <p>{{assignment.upload_at}}</p>
-            <p>{{assignment.deadline}}</p>
-
+            <p>{{submission.name}}</p>
+            <p>{{submission.student.roll_no}}</p>
+            <p>{{submission.upload_at}}</p>
           
-            <button><a href="{{ assignment.file.url }}" target="_blank">Preview</a></button>
-             <button><a href="{{ assignment.get_absolute_url }}">Download&nbsp;&nbsp;<i class="fa-solid fa-download fa-beat"></i></a></button>
+            <button><a href="{{ submission.file.url }}" target="_blank">Preview</a></button>
+             <button><a href="{{ submission.get_absolute_url }}">Download&nbsp;&nbsp;<i class="fa-solid fa-download fa-beat"></i></a></button>
         
         </div>
 
@@ -71,7 +68,6 @@
 
 
         
-        <button id="uploadassignment"><a href="{% url 'tuploadassignments' room.id %}">Upload Assignment</a></button>
         </div>
    </div>
 

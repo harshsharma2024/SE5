@@ -149,9 +149,49 @@ class Tassignments(models.Model):
         return reverse('download_file_tassignments', args=[str(self.id)])
 
 
-from django.db import models
-from django.utils import timezone
-import sched, time
+class Submissions(models.Model):
+    room=models.ForeignKey(Room,on_delete=models.CASCADE)
+    student=models.ForeignKey(Student,on_delete=models.CASCADE)
+    file=file=models.FileField(upload_to='submissions/')
+    name=models.CharField(max_length=200, null=True)
+    description=models.CharField(max_length=400, null=True)
+    upload_at=models.DateTimeField(auto_now_add=True)
+
+
+    def get_absolute_url(self):
+        return reverse('download_file_submissions', args=[str(self.id)])
+
+    class Meta:
+        ordering=['upload_at']
+
+#test
+class Ttest(models.Model):
+    room=models.ForeignKey(Room,on_delete=models.CASCADE)
+    teacher=models.ForeignKey(Teacher,on_delete=models.CASCADE)
+    name=models.CharField(max_length=100)
+    upload_at=models.DateTimeField(auto_now_add=True)
+    deadline=models.DateTimeField()
+    file=models.FileField(upload_to='ttest/')
+
+    def get_absolute_url(self):
+        return reverse('download_file_ttest', args=[str(self.id)])
+
+class Tsubmissions(models.Model):
+    room=models.ForeignKey(Room,on_delete=models.CASCADE)
+    student=models.ForeignKey(Student,on_delete=models.CASCADE)
+    file=file=models.FileField(upload_to='tsubmissions/')
+    name=models.CharField(max_length=200, null=True)
+    description=models.CharField(max_length=400, null=True)
+    upload_at=models.DateTimeField(auto_now_add=True)
+
+
+    def get_absolute_url(self):
+        return reverse('download_file_tsubmissions', args=[str(self.id)])
+
+    class Meta:
+        ordering=['upload_at']
+
+    
 
 class Meeting(models.Model):
     room=models.ForeignKey(Room,on_delete=models.CASCADE)

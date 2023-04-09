@@ -23,7 +23,7 @@
               <a href="{% url 'tassignments' room.id %}">Assignment</a>
             </li>
             <li class="opt">
-             <a href="{% url 'ttest' room.id %}">Test</a>
+                <a href="{% url 'ttest' room.id %}">Test</a>
             </li>
             <li class="opt">
                <a href="{% url 'tfiles' room.id %}">Files</a>
@@ -40,7 +40,7 @@
 
 
     <div class="assrightcontainer">
-        <h1>Assignments</h1>
+        <h1>Tests</h1>
         <div class="assignmentnavbar">
             <p>Sl.no</p>
             <p>NAME</p>
@@ -62,7 +62,7 @@
             <p>{{assignment.deadline}}</p>
 
           
-            <button><a href="{{ assignment.file.url }}" target="_blank">Preview</a></button>
+             <button><a href="{{ assignment.file.url }}" target="_blank">Preview</a></button>
              <button><a href="{{ assignment.get_absolute_url }}">Download&nbsp;&nbsp;<i class="fa-solid fa-download fa-beat"></i></a></button>
         
         </div>
@@ -71,7 +71,7 @@
 
 
         
-        <button id="uploadassignment"><a href="{% url 'tuploadassignments' room.id %}">Upload Assignment</a></button>
+        <button id="uploadassignment"><a href="{% url 'tuploadtest' room.id %}">Upload Test</a></button>
         </div>
    </div>
 

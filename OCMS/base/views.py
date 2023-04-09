@@ -4,9 +4,9 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import User ,Teacher,Student,Room,Message,Files,Lectures,Tassignments,Meeting
+from .models import User ,Teacher,Student,Room,Message,Files,Lectures,Tassignments,Meeting,Submissions,Ttest,Tsubmissions
 from base import models
-from .forms import StudentRegisterForm,TeacherRegisterForm,StudentUpdateForm,TeacherUpdateForm,UserForm,CreateRoomForm,FileForm,LectureForm,TassignmentForm
+from .forms import StudentRegisterForm,TeacherRegisterForm,StudentUpdateForm,TeacherUpdateForm,UserForm,CreateRoomForm,FileForm,LectureForm,TassignmentForm,SubmissionForm,TtestForm,tsubmissionForm
 from .forms import MeetingForm
 
 
@@ -544,12 +544,134 @@ def download_file_tassignments(request, file_id):
     response['Content-Disposition'] = f'attachment; filename="{file.name}"'
     return response
 
+
+
 def sassignments(request,pk):
     room=Room.objects.get(id=pk)
     assignments=Tassignments.objects.filter(room__id=pk)
 
     context={'room':room,'assignments':assignments}
     return render(request,"base/sassignments.html",context)
+
+def submission(request,pk):
+    room=Room.objects.get(id=pk)
+    student=Student.objects.filter(user=request.user)
+
+    if request.method=='POST':
+        form=SubmissionForm(request.POST, request.FILES)
+        if form.is_valid():
+            file=form.save(commit=False)
+            file.room=room
+            file.student=student[0]
+            messages.error(request,"Submitted Succesfully")
+            file.save()
+
+            return redirect('sassignments',pk=room.id)
+    else:
+        form=SubmissionForm()
+
+    context={'form':form,'room':room}
+
+    return render(request,'base/submission.html',context)
+
+def tasubmission(request,pk):
+    room=Room.objects.get(id=pk)
+    submissions = Submissions.objects.filter(room_id=pk)
+
+    context={'room':room,'submissions':submissions}
+    return render(request,'base/tasubmission.html',context)
+
+def download_file_submissions(request, file_id):
+    file = get_object_or_404(Submissions, id=file_id)
+    response = HttpResponse(file.file, content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{file.name}"'
+    return response
+
+
+#test
+
+def ttest(request,pk):
+    room=Room.objects.get(id=pk)
+
+    assignments=Ttest.objects.filter(room__id=pk)
+    context={'room':room,'assignments':assignments}
+
+    return render(request,"base/ttest.html",context)
+
+
+
+def tuploadtest(request,pk):
+    room=Room.objects.get(id=pk)
+    teacher=Teacher.objects.filter(rooms=room)
+
+    if request.method=='POST':
+        form=TtestForm(request.POST, request.FILES)
+        if form.is_valid():
+            file=form.save(commit=False)
+            file.room=room
+            file.teacher=teacher[0]
+            file.save()
+
+            return redirect('ttest',pk=room.id)
+    else:
+        form=TtestForm()
+
+    context={'form':form,'room':room}
+
+    return render(request,'base/tuploadtest.html',context)
+
+
+def download_file_ttest(request, file_id):
+    file = get_object_or_404(Ttest, id=file_id)
+    response = HttpResponse(file.file, content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{file.name}"'
+    return response
+
+
+def stest(request,pk):
+    room=Room.objects.get(id=pk)
+    assignments=Ttest.objects.filter(room__id=pk)
+
+    context={'room':room,'assignments':assignments}
+    return render(request,"base/stest.html",context)
+
+
+
+def tsubmission(request,pk):
+    room=Room.objects.get(id=pk)
+    student=Student.objects.filter(user=request.user)
+
+    if request.method=='POST':
+        form=tsubmissionForm(request.POST, request.FILES)
+        if form.is_valid():
+            file=form.save(commit=False)
+            file.room=room
+            file.student=student[0]
+            messages.error(request,"Submitted Succesfully")
+            file.save()
+
+            return redirect('stest',pk=room.id)
+    else:
+        form=tsubmissionForm()
+
+    context={'form':form,'room':room}
+
+    return render(request,'base/tsubmission.html',context)
+
+
+def ttsubmission(request,pk):
+    room=Room.objects.get(id=pk)
+    submissions = Tsubmissions.objects.filter(room_id=pk)
+
+    context={'room':room,'submissions':submissions}
+    return render(request,'base/ttsubmission.html',context)
+
+
+def download_file_tsubmissions(request, file_id):
+    file = get_object_or_404(Tsubmissions, id=file_id)
+    response = HttpResponse(file.file, content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{file.name}"'
+    return response
 
 
 

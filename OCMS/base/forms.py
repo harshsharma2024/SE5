@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Room, User,Student,Teacher,Files,Lectures,Tassignments,Meeting
+from .models import Room, User,Student,Teacher,Files,Lectures,Tassignments,Meeting,Submissions,Ttest,Tsubmissions
 
 from tempus_dominus.widgets import DateTimePicker
 
@@ -79,9 +79,34 @@ class TassignmentForm(forms.ModelForm):
         }
 
 
+class TtestForm(forms.ModelForm):
+    class Meta:
+        model = Ttest
+        fields = ['name', 'file', 'deadline']
+        widgets = {
+            'deadline': DateTimePicker(
+                options={
+                    'format': 'YYYY-MM-DD HH:mm', # specify the format of the date/time
+                    'useCurrent': False, # do not use the current date/time as the default value
+                }
+            )
+        }
+
+
 
 class MeetingForm(forms.ModelForm):
     class Meta:
         model = Meeting
         fields = ('name','link', 'start_time', 'end_time')
         
+
+class SubmissionForm(forms.ModelForm):
+    class Meta:
+        model=Submissions
+        fields=('name','description','file')
+
+
+class tsubmissionForm(forms.ModelForm):
+    class Meta:
+        model=Tsubmissions
+        fields=('name','description','file')
