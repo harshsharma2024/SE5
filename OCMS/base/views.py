@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.views.decorators.csrf import csrf_protect
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import User ,Teacher,Student,Room,Message,Files,Lectures
+from .models import User ,Teacher,Student,Room,Message,Files,Lectures,Tassignments,Meeting
 from base import models
-from .forms import StudentRegisterForm,TeacherRegisterForm,StudentUpdateForm,TeacherUpdateForm,UserForm,CreateRoomForm,FileForm,LectureForm
+from .forms import StudentRegisterForm,TeacherRegisterForm,StudentUpdateForm,TeacherUpdateForm,UserForm,CreateRoomForm,FileForm,LectureForm,TassignmentForm
+from .forms import MeetingForm
+
+
 
 @login_required(login_url='check')
 def portal(request):
@@ -90,6 +93,7 @@ def StudentRegister(request):
         student_form = StudentRegisterForm(request.POST)
         user_form=UserForm(request.POST)
         if user_form.is_valid() and student_form.is_valid():
+                messages.error(request,'Successfully Registered')
             # if user_form.DoesNotExist:
                 user=user_form.save(commit=False)
                 user.is_student=True
@@ -217,7 +221,7 @@ def Join(request):
         room=Room.objects.get(id=room_id)
         print('checkingg...')
         if (code==room.room_code):
-
+            messages.error(request,"Class Succesfully Joined")
             Student_User.rooms.add(room)
         
         else:
@@ -500,4 +504,84 @@ def slectures(request,pk):
 
     context={'room':room,'lectures':lectures}
     return render(request,"base/slectures.html",context)
+
+
+#Assignments
+
+def tassignments(request,pk):
+    room=Room.objects.get(id=pk)
+
+    assignments=Tassignments.objects.filter(room__id=pk)
+    context={'room':room,'assignments':assignments}
+
+    return render(request,"base/tassignments.html",context)
+
+
+def tuploadassignments(request,pk):
+    room=Room.objects.get(id=pk)
+    teacher=Teacher.objects.filter(rooms=room)
+
+    if request.method=='POST':
+        form=TassignmentForm(request.POST, request.FILES)
+        if form.is_valid():
+            file=form.save(commit=False)
+            file.room=room
+            file.teacher=teacher[0]
+            file.save()
+
+            return redirect('tassignments',pk=room.id)
+    else:
+        form=TassignmentForm()
+
+    context={'form':form,'room':room}
+
+    return render(request,'base/tuploadassignments.html',context)
+
+
+def download_file_tassignments(request, file_id):
+    file = get_object_or_404(Tassignments, id=file_id)
+    response = HttpResponse(file.file, content_type='application/octet-stream')
+    response['Content-Disposition'] = f'attachment; filename="{file.name}"'
+    return response
+
+def sassignments(request,pk):
+    room=Room.objects.get(id=pk)
+    assignments=Tassignments.objects.filter(room__id=pk)
+
+    context={'room':room,'assignments':assignments}
+    return render(request,"base/sassignments.html",context)
+
+
+
+
+#live class
+def create_meeting(request,pk):
+    room=Room.objects.get(id=pk)
+    if request.method == 'POST':
+        form = MeetingForm(request.POST)
+        if form.is_valid():
+            meeting = form.save(commit=False)
+            meeting.room=room
+            meeting.save()
+            return redirect('troom',pk=room.id)
+    else:
+        form = MeetingForm()
+    return render(request, 'base/create_meeting.html', {'form': form,'room':room})
+
+
+def tcalendar(request):
+    teacher = Teacher.objects.get(user=request.user)
+    meetings = Meeting.objects.filter(room__teacher=teacher)
+
+    context={"teacher":teacher,'meetings':meetings}
+    return render(request,"base/tcalendar.html",context)
+
+def scalendar(request):
+    student = Student.objects.get(user=request.user) 
+
+    meetings = Meeting.objects.filter(room__in=student.rooms.all())
+
+    context={"meetings":meetings,"student":student}
+
+    return render(request,"base/scalendar.html",context)
 

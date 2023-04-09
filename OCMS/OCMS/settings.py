@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'base.apps.BaseConfig',
+    'tempus_dominus',
 ]
 
 AUTH_USER_MODEL = 'base.User'

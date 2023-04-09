@@ -20,7 +20,7 @@
                <a href="{% url 'troom' room.id %}"> Chat</a>
             </li>
             <li class="opt">
-              <a href="#">Assignment</a>
+              <a href="{% url 'tassignments' room.id %}">Assignment</a>
             </li>
             <li class="opt">
              <a href="#">Test</a>
@@ -30,6 +30,9 @@
             </li>
             <li class="opt">
                 <a href="{% url 'tlectures' room.id %}">Lecture</a>
+            </li>
+            <li class="opt">
+                <a href="{% url 'create_meeting' room.id %}">Live Lecture</a>
             </li>
             <li class="opt">
                 <a href="{% url 'trstudents' room.id %}">Students</a>

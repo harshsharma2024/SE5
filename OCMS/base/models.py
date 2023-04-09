@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.http import HttpResponse
 from django.urls import reverse
 from django.conf import settings
+from django.utils import timezone
+import sched, time
 import os
 
 # class Room:
@@ -90,7 +92,7 @@ class Teacher(models.Model):
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    body = models.TextField()
+    body = models.TextField(max_length=1000)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -135,3 +137,49 @@ class Lectures(models.Model):
 
 
 
+class Tassignments(models.Model):
+    room=models.ForeignKey(Room,on_delete=models.CASCADE)
+    teacher=models.ForeignKey(Teacher,on_delete=models.CASCADE)
+    name=models.CharField(max_length=100)
+    upload_at=models.DateTimeField(auto_now_add=True)
+    deadline=models.DateTimeField()
+    file=models.FileField(upload_to='tassignments/')
+
+    def get_absolute_url(self):
+        return reverse('download_file_tassignments', args=[str(self.id)])
+
+
+from django.db import models
+from django.utils import timezone
+import sched, time
+
+class Meeting(models.Model):
+    room=models.ForeignKey(Room,on_delete=models.CASCADE)
+    name=models.CharField(max_length=400 ,null=True , default="default")
+    link = models.CharField(max_length=400)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
+    def delete_meeting(self):
+        self.delete()
+
+    # def schedule_deletion(self):
+    #     s = sched.scheduler(time.time, time.sleep)
+
+    #     end_time = timezone.localtime(self.end_time)
+    #     delay = (end_time - timezone.localtime(timezone.now())).total_seconds()
+
+    #     s.enter(delay, 1, self.delete_meeting)
+
+    #     s.run()
+
+    # def save(self, *args, **kwargs):
+    #     super(Meeting, self).save(*args, **kwargs)
+    #     self.schedule_deletion()
+
+    def __str__(self):
+        return self.link
+
+
+    class Meta:
+        ordering = ['start_time']

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p>MEETING Calendar</p>
+    
+    {% for meeting in meetings %}
+        <p>meeting {{meeting.name}} in Room <a href="{% url 'troom' meeting.room.id %}">{{meeting.room.name}}</a></p>
+        <p>{{meeting.start_time}}</p>
+        <p>{{meeting.end_time}}</p>
+        <a href={{meeting.link}}><p>Link</p></a>
+        <hr>
+
+    {% endfor %}
+
+
+</body>
+</html>

@@ -1,7 +1,11 @@
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Room, User,Student,Teacher,Files,Lectures
+from .models import Room, User,Student,Teacher,Files,Lectures,Tassignments,Meeting
+
+from tempus_dominus.widgets import DateTimePicker
+
+
 
 
 #for StudentLoginForm in html file itself
@@ -58,3 +62,26 @@ class LectureForm(ModelForm):
         widgets={
             'description': forms.Textarea(attrs={'rows':3}),
         }
+
+from tempus_dominus.widgets import DateTimePicker
+
+class TassignmentForm(forms.ModelForm):
+    class Meta:
+        model = Tassignments
+        fields = ['name', 'file', 'deadline']
+        widgets = {
+            'deadline': DateTimePicker(
+                options={
+                    'format': 'YYYY-MM-DD HH:mm', # specify the format of the date/time
+                    'useCurrent': False, # do not use the current date/time as the default value
+                }
+            )
+        }
+
+
+
+class MeetingForm(forms.ModelForm):
+    class Meta:
+        model = Meeting
+        fields = ('name','link', 'start_time', 'end_time')
+        

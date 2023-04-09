@@ -62,6 +62,7 @@
                 <p>{{lecture.uploaded_by}}</p>
               
                 <p>{{lecture.uploaded_at}}</p>
+                <button><a href="{{ lecture.file.url }}" target="_blank">Preview</a></button>
                  <button><a href="{{ lecture.get_absolute_url }}">Download&nbsp;&nbsp;<i class="fa-solid fa-download fa-beat"></i></a></button>
             
             </div>

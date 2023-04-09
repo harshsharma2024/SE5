@@ -26,10 +26,10 @@
                  <a href="#">Test</a>
                 </li>
                 <li class="opt">
-                   <a href="#">Files</a>
+                   <a href="{% url 'tfiles' room.id %}">Files</a>
                 </li>
                 <li class="opt">
-                    <a href="#">Lecture</a>
+                    <a href="{% url 'tlectures' room.id %}">Lecture</a>
                 </li>
                 <li class="opt">
                     <a href="{% url 'trstudents' room.id %}">Students</a>

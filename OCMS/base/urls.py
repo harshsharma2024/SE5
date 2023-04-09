@@ -52,5 +52,15 @@ urlpatterns=[
     path('download/lecture/<int:file_id>/', views.download_file_lectures, name='download_file_lectures'),
     path('sroom/<str:pk>/lectures',views.slectures,name="slectures"),
 
+    #assignment
+    path('troom/<str:pk>/tassignments',views.tassignments,name='tassignments'),
+    path('troom/<str:pk>/tassignments/upload',views.tuploadassignments,name='tuploadassignments'),
+    path('download/tassignments/<int:file_id>/', views.download_file_tassignments, name='download_file_tassignments'),
+
+    #live meet
+    path('troom/<str:pk>/createmeet',views.create_meeting,name='create_meeting'),
+    path('tcalendar/',views.tcalendar,name="tcalendar"),
+    path('scalendar/',views.scalendar,name="scalendar"),
+
 
 ]
